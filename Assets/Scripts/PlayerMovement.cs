@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (jump)
         {
-            rb.velocity += Vector2.up * Mathf.Sqrt(2 * jumpHeight * gravityRise);
+            rb.velocity += Vector2.up * Mathf.Sqrt(-2f * jumpHeight * gravityRise * Physics2D.gravity.y);
             jump = false;
         }
 
