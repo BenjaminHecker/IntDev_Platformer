@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject knifePrefab;
+    [SerializeField] private float throwSpeed = 10f;
+    [SerializeField] private float rotateSpeed = 1f;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            // throw knife
+        }
     }
 }
