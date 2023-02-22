@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private LayerMask groundLayer;
 
+    private PlayerInput playerInput;
     private Rigidbody2D rb;
     private Animator anim;
     private SpriteRenderer sRender;
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sRender = GetComponent<SpriteRenderer>();
@@ -31,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxis("Horizontal");
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (playerInput.actions["Jump"].WasPressedThisFrame() && grounded)
             jump = true;
 
         if (horizontalMove > 0.2f)

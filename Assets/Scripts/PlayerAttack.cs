@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -11,14 +12,18 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float travelSpeed = 10f;
     [SerializeField] private float turnSpeed = 1f;
 
+    private PlayerInput playerInput;
+
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
+
         knifeCount = knifeCapacity;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (playerInput.actions["Shoot"].WasPressedThisFrame())
         {
             ThrowKnife();
         }
