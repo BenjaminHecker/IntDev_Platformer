@@ -44,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
     {
         move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, castDist, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * castDist, Color.red);
+
+        grounded = hit.collider != null;
+
         if (playerInput.actions["Jump"].WasPressedThisFrame() && grounded)
             jump = true;
 
@@ -110,11 +115,6 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = gravityRise;
             else if (rb.velocity.y < 0)
                 rb.gravityScale = gravityFall;
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, castDist, groundLayer);
-            Debug.DrawRay(transform.position, Vector2.down * castDist, Color.red);
-
-            grounded = hit.collider != null;
 
             rb.velocity = new Vector2(move.x * speed, rb.velocity.y);
         }
