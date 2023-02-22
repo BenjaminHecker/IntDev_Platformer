@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5044229935678145710}
   m_Layer: 0
   m_Name: Throwing Knife
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!70 &1124568952528921208
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
