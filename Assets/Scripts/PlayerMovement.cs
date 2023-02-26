@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float launchSpeed = 10f;
     [SerializeField] private float launchDuration = 0.2f;
     [SerializeField] private float launchSlowtime = 0.2f;
+    [SerializeField] private ParticleSystem particlePrefab;
 
     private float launchTimer = 0f;
     private bool hasLaunch = false;
@@ -60,7 +61,15 @@ public class PlayerMovement : MonoBehaviour
             hasLaunch = false;
             launch = true;
             launchTimer = 0f;
-            launchDir = -move.normalized;
+
+            launchDir = -1 * new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            launchDir = SnapAngle(launchDir.normalized);
+
+            ParticleSystem particle = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+
+            particle.transform.forward = (launchDir == Vector2.zero) ? Vector3.forward : -launchDir;
+            Destroy(particle.gameObject, particle.main.startLifetime.constant);
         }
 
         if (move.x > 0.2f)
@@ -82,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         if (launch)
         {
             Vector2 launchVelocity = launchDir * launchSpeed;
-            Vector2 moveVelocity = move * speed;
+            Vector2 moveVelocity = Vector2.right * move.x * speed;
 
             if (launchTimer >= launchDuration + launchSlowtime)
             {
@@ -118,5 +127,15 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity = new Vector2(move.x * speed, rb.velocity.y);
         }
+    }
+
+    public static Vector2 SnapAngle(Vector2 vector, int increments = 8)
+    {
+        float angle = Mathf.Atan2(vector.y, vector.x);
+        float direction = ((angle / Mathf.PI) + 1) * 0.5f;
+        float snappedDirection = Mathf.Round(direction * increments) / increments;
+        snappedDirection = ((snappedDirection * 2) - 1) * Mathf.PI;
+        Vector2 snappedVector = new Vector2(Mathf.Cos(snappedDirection), Mathf.Sin(snappedDirection));
+        return vector.magnitude * snappedVector;
     }
 }

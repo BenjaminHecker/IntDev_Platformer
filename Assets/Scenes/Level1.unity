@@ -360,17 +360,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf79ae940c2782479d8475dc3589c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 7
   castDist: 0.6
   gravityRise: 5
-  gravityFall: 10
+  gravityFall: 5
   jumpHeight: 2.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  launchSpeed: 25
-  launchDuration: 0.15
-  launchSlowtime: 0.1
+  launchSpeed: 20
+  launchDuration: 0.2
+  launchSlowtime: 0.15
+  particlePrefab: {fileID: 2534691711797573980, guid: 4b32ba1f3ab2a824aa1d495f82e2e59f, type: 3}
 --- !u!95 &399529075
 Animator:
   serializedVersion: 5
@@ -403,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9c7df423799cc41b72e6f64ae13667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knifeCapacity: 3
+  knifeCapacity: 1
   knifePrefab: {fileID: 5044229935678145710, guid: 535c6e24ccc33634ab5968b2261a10ba, type: 3}
   travelSpeed: 20
   turnSpeed: 500

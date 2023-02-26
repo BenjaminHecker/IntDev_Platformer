@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private int knifeCapacity = 3;
+    [SerializeField] private int knifeCapacity = 1;
     private int knifeCount;
 
     [SerializeField] private ThrowingKnife knifePrefab;
@@ -13,10 +13,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float turnSpeed = 1f;
 
     private PlayerInput playerInput;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        rb = GetComponent<Rigidbody2D>();
 
         knifeCount = knifeCapacity;
     }
@@ -33,13 +35,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (knifeCount > 0)
         {
-            Vector3 dir = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
+            Vector3 dir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (dir == Vector3.zero)
-                dir = Vector3.right;
+                dir = rb.velocity;
+
+            dir = PlayerMovement.SnapAngle(dir.normalized);
 
             ThrowingKnife knife = Instantiate(knifePrefab);
             knife.Setup(this, transform, travelSpeed, turnSpeed, dir.normalized);
-
 
             knifeCount--;
         }
